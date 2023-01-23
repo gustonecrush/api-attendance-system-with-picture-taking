@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AbsentEntryController;
+use App\Http\Controllers\AbsentOutController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\UserController;
+use App\Models\AbsentEntry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +35,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Protected APIs
     Route::resource('/user', UserController::class);
     Route::resource('/employee', EmployeeController::class);
+    Route::resource('/absent-entry', AbsentEntryController::class);
+    Route::resource('/absent-out', AbsentOutController::class);
 
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
