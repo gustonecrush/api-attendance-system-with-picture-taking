@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('department');
-            $table->integer('salary');
+            $table->integer('salary')->default(0);
             $table->timestamp('hire_date');
             $table->timestamps();
         });

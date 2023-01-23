@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
-{    
+{
     /**
      * register
      *
@@ -21,7 +21,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -33,7 +33,6 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_admin' => 0,
         ]);
 
         if ($user) {
@@ -50,7 +49,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Register is Failed'], 400);
         }
     }
-    
+
     /**
      * login
      *
@@ -73,7 +72,7 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
         ]);
     }
-    
+
     /**
      * logout
      *
@@ -85,6 +84,6 @@ class AuthController extends Controller
             ->tokens()
             ->delete();
 
-        return $this->sendResponse(['message' => 'Logout successfully'], 200);
+        return response()->json(['message' => 'Logout successfully'], 200);
     }
 }
