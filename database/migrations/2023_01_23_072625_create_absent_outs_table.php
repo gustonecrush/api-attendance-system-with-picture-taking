@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('absent_outs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id');
+            $table->string('status');
+            $table->string('absent_picture');
             $table->timestamps();
         });
     }

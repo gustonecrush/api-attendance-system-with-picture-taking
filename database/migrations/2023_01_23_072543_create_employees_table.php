@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->string('DOB');
+            $table->string('status');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('department');
+            $table->integer('salary');
+            $table->timestamp('hire_date');
             $table->timestamps();
         });
     }
