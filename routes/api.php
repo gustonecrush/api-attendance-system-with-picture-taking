@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 
 // API route for login user
+Route::post('/login', [AuthController::class, 'login']);
+
+// Protecting Routes
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    // Protected APIs
+    Route::resource('/user', UserController::class);
+
+    // API route for logout user
+    Route::post('/logout', [AuthController::class, 'logout']);
+});

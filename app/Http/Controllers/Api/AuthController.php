@@ -10,7 +10,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
-{
+{    
+    /**
+     * register
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -44,7 +50,13 @@ class AuthController extends Controller
             return response()->json(['message' => 'Register is Failed'], 400);
         }
     }
-
+    
+    /**
+     * login
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
@@ -61,13 +73,18 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
         ]);
     }
-
+    
+    /**
+     * logout
+     *
+     * @return void
+     */
     public function logout()
     {
         Auth::user()
             ->tokens()
             ->delete();
-            
+
         return $this->sendResponse(['message' => 'Logout successfully'], 200);
     }
 }
