@@ -50,14 +50,16 @@ class AbsentEntryController extends Controller
 
         // create status
         $time = Carbon::now();
-        // initialize variable status then assign with late
+        // initialize variable status
         $status = $request->status;
-        
-        // if they absensence in range time they have to so status is ontime, if no
-        if ($time->hour >= 7 && $time->hour <= 8 && $status !== null) {
-            $status = 'ontime';
-        } else {
-            $status = 'late';
+
+        // if they absensence in range time they have to so status is ontime
+        if ($status === null) {
+            if ($time->hour >= 7 && $time->hour <= 8) {
+                $status = 'ontime';
+            } else {
+                $status = 'late';
+            }
         }
 
         // get data employee id
