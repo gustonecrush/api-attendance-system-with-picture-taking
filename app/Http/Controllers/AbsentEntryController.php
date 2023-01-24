@@ -63,7 +63,11 @@ class AbsentEntryController extends Controller
         }
 
         // get data employee id
-        $employeeID = Employee::find($request->user()->id)->id;
+        $employeeID = Employee::where(
+            'user_id',
+            '=',
+            $request->user()->id
+        )->first()->id;
 
         // store the image using random name
         $absentPicture = $request
