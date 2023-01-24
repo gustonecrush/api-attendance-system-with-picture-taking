@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,7 +14,15 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(['data' => $request->user()], 200);
+        return response()->json(
+            [
+                'data' => User::where('id', '=', $request->user()->id)
+                    ->with('employee')
+                    ->first(),
+                'status' => 'success',
+            ],
+            200
+        );
     }
 
     /**
