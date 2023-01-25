@@ -70,7 +70,7 @@ class AbsentOutController extends Controller
             'user_id',
             '=',
             $request->user()->id
-        )->first()->id;
+        )->first()->employee_id;
 
         // store the image using random name
         $absentPicture = $request->file('absent_picture')->store('absent-outs');

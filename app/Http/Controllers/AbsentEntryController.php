@@ -40,7 +40,7 @@ class AbsentEntryController extends Controller
     {
         // validate the image has been captured
         $validator = Validator::make($request->all(), [
-            'absent_picture' => ['required', File::image()],
+            'absent_picture' => ['required', 'file'],
         ]);
 
         // return the errors if validator is failed
@@ -67,7 +67,7 @@ class AbsentEntryController extends Controller
             'user_id',
             '=',
             $request->user()->id
-        )->first()->id;
+        )->first()->employee_id;
 
         // store the image using random name
         $absentPicture = $request

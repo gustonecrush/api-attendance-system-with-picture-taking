@@ -14,13 +14,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(
-            [
-                'data' => User::where('id', '=', $request->user()->id)
-                    ->with('employee')
-                    ->first(),
-                'status' => 'success',
-            ],
+        return $this->sendResponse(
+            User::where('id', '=', $request->user()->id)
+                ->with('employee')
+                ->first(),
+
+            'Get User Successfully!',
             200
         );
     }
