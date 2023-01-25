@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AbsentResource;
+use App\Models\AbsentEntry;
 use App\Models\AbsentOut;
 use App\Models\Employee;
 use Carbon\Carbon;
@@ -11,6 +13,8 @@ use Illuminate\Validation\Rules\File;
 
 class AbsentOutController extends Controller
 {
+    private $absentOuts;
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +22,15 @@ class AbsentOutController extends Controller
      */
     public function index()
     {
-        //
+         $this->absentOuts = AbsentOut::all();
+        $absentOutsResource = AbsentResource::collection(
+            $this->absentOuts
+        );
+        return $this->sendResponse(
+            $absentOutsResource,
+            'Get Absent Outs Successfully!',
+            200
+        );
     }
 
     /**

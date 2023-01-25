@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AbsentResource;
 use App\Models\AbsentEntry;
 use App\Models\Employee;
 use Carbon\Carbon;
@@ -11,6 +12,8 @@ use Illuminate\Validation\Rules\File;
 
 class AbsentEntryController extends Controller
 {
+    private $absentEntries;
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +21,15 @@ class AbsentEntryController extends Controller
      */
     public function index()
     {
-        //
+        $this->absentEntries = AbsentEntry::all();
+        $absentEntriesResource = AbsentResource::collection(
+            $this->absentEntries
+        );
+        return $this->sendResponse(
+            $absentEntriesResource,
+            'Get Absent Entries Successfully!',
+            200
+        );
     }
 
     /**
