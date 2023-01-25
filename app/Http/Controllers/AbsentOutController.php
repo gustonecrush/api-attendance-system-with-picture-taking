@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\AbsentResource;
-use App\Models\AbsentEntry;
 use App\Models\AbsentOut;
 use App\Models\Employee;
 use Carbon\Carbon;
@@ -22,10 +21,22 @@ class AbsentOutController extends Controller
      */
     public function index()
     {
-         $this->absentOuts = AbsentOut::all();
-        $absentOutsResource = AbsentResource::collection(
-            $this->absentOuts
+        $this->absentOuts = AbsentOut::all();
+        $absentOutsResource = AbsentResource::collection($this->absentOuts);
+        return $this->sendResponse(
+            $absentOutsResource,
+            'Get Absent Outs Successfully!',
+            200
         );
+    }
+
+    public function employee(Request $request)
+    {
+        $user = $request->user();
+        $employeeID = Employee::where('user_id', '=', $user->id)->first()
+            ->employee_id;
+        $this->absentOuts = AbsentOut::where('employee_id', '=', $employeeID)->get();
+        $absentOutsResource = AbsentResource::collection($this->absentOuts);
         return $this->sendResponse(
             $absentOutsResource,
             'Get Absent Outs Successfully!',

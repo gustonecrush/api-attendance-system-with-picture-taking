@@ -32,6 +32,20 @@ class AbsentEntryController extends Controller
         );
     }
 
+    public function employee(Request $request)
+    {
+        $user = $request->user();
+        $employeeID = Employee::where('user_id', '=', $user->id)->first()
+            ->employee_id;
+        $this->absentEntries = AbsentEntry::where('employee_id', '=', $employeeID)->get();
+        $absentEntriesResource = AbsentResource::collection($this->absentEntries);
+        return $this->sendResponse(
+            $absentEntriesResource,
+            'Get Absent Entries Successfully!',
+            200
+        );
+    }
+
     /**
      * Show the form for creating a new resource.
      *

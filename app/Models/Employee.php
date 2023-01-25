@@ -22,4 +22,9 @@ class Employee extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function AbsentOut()
+    {
+        return $this->hasMany(AbsentOut::class);
+    }
 }
