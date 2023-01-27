@@ -42,11 +42,19 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         AbsentEntryController::class,
         'employee',
     ]);
+    Route::post('/absent-entry/download/{absent_entry:id}', [
+        AbsentEntryController::class,
+        'download',
+    ]);
 
     Route::resource('/absent-out', AbsentOutController::class);
     Route::post('/absent-out/employee', [
         AbsentOutController::class,
         'employee',
+    ]);
+    Route::post('/absent-out/download/{absent_out:id}', [
+        AbsentOutController::class,
+        'download',
     ]);
 
     // API route for logout user

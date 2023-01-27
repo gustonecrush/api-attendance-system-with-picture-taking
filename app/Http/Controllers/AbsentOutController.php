@@ -35,7 +35,11 @@ class AbsentOutController extends Controller
         $user = $request->user();
         $employeeID = Employee::where('user_id', '=', $user->id)->first()
             ->employee_id;
-        $this->absentOuts = AbsentOut::where('employee_id', '=', $employeeID)->get();
+        $this->absentOuts = AbsentOut::where(
+            'employee_id',
+            '=',
+            $employeeID
+        )->get();
         $absentOutsResource = AbsentResource::collection($this->absentOuts);
         return $this->sendResponse(
             $absentOutsResource,
@@ -150,5 +154,13 @@ class AbsentOutController extends Controller
     public function destroy(AbsentOut $absentOut)
     {
         //
+    }
+
+    public function download(Request $request, $id)
+    {
+        $absent = AbsentOut::find((int) $id);
+        $dokumenPath = public_path('storage/' . $absent->absent_picture);
+        dd($dokumenPath);
+        return response()->download($dokumenPath);
     }
 }

@@ -75,6 +75,7 @@ class AbsentEntryController extends Controller
 
         // create status
         $time = Carbon::now();
+        dd($time);
         // initialize variable status
         $status = $request->status;
 
@@ -151,5 +152,12 @@ class AbsentEntryController extends Controller
     public function destroy(AbsentEntry $absentEntry)
     {
         //
+    }
+
+    public function download(Request $request, $id)
+    {
+        $absent = AbsentEntry::find((int) $id);
+        $dokumenPath = public_path('storage/' . $absent->absent_picture);
+        return response()->download($dokumenPath);
     }
 }
