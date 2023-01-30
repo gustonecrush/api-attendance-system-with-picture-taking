@@ -8,7 +8,6 @@ use App\Models\Employee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\File;
 
 class AbsentEntryController extends Controller
 {
